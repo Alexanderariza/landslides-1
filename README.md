@@ -1,5 +1,5 @@
 # Cloud-based landslide monitoring applications 
-<img src='IMG\NASA_sunkoshi_oli_2014261_gh.jpg' alt='Landslide in northern Nepal in August 2014. Image: NASA.' style="align:center; width:100%;"></img>
+<figure><img src='IMG\NASA_sunkoshi_oli_2014261_gh.jpg' alt='Landslide in northern Nepal in August 2014. Image: NASA.' style="align:center; width:100%;"></img><figcaption>Landslide in northern Nepal in August 2014. Image: NASA.</figcaption><figure>
 <hr>
 
 ## Description
