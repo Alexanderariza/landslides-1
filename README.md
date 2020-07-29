@@ -3,7 +3,7 @@
 <hr>
 
 ## Description
-This repository is a collection of basic scripts - explained in **English and Spanish** - for analysing landslides using space-based data in [**Google Earth Engine (GGE)**](https://earthengine.google.com/), [**Sentinel Playground**](https://www.sentinel-hub.com/explore/sentinelplayground/) or [**EO Browser**](https://www.sentinel-hub.com/explore/eobrowser/). It aims to facilitate working with big data in the cloud as an alternative to using desktop software.
+This repository is a collection of basic scripts - explained in **English and Spanish** - for analysing landslides using space-based data in [**Google Earth Engine (GEE)**](https://earthengine.google.com/), [**Sentinel Playground**](https://www.sentinel-hub.com/explore/sentinelplayground/) or [**EO Browser**](https://www.sentinel-hub.com/explore/eobrowser/). It aims to facilitate working with big data in the cloud as an alternative to using desktop software.
 ## 1. Definition of landslides
 According to the United Nations Office for Disaster Risk Reduction [(UNDRR)](https://www.unisdr.org/files/52828_03landslidehazardandriskassessment.pdf#page=2), landslides are a a "variety of processes that result in the downward and outward movement of slope-forming materials, including rock, soil, artificial fill, or a combination of these. The materials may move by falling, toppling, sliding, spreading, or flowing." 
 ## 2. General description of the algorithm 
