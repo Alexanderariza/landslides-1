@@ -102,7 +102,7 @@ function evaluatePixel(samples, scenes) {
     let lastYearMonth2 = [];
 
     for (i = 0; i < samples.length; i++) {
-        if (!(samples[i].B04 == 0) & !(samples[i].B03 == 0)) {
+        if (!(samples[i].B11 == 0) & !(samples[i].B04 == 0)) {
             sceneMonth = scenes[i].date.getMonth();
             sceneYear = scenes[i].date.getFullYear();
             if (monthsAndYears[0].includes(sceneMonth)) {
