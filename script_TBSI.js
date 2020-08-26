@@ -6,12 +6,12 @@
 
 //Indice temporal de suelo desnudo, Ver. 1.0
 //VERSION=2 (auto-converted from 1)
-// Minimum difference between the two mean NDVIs
+// Minimum difference between the two mean BSIs
 var thresold = 0.25;
 // Thresold to dismiss clouds to calculate the mean
 var blueThresold = 0.18;
-// Minimum mean NDVI to consider for month(s) of last year
-var minimunNDVI = 0.7;
+// Minimum mean BSI to consider for month(s) of last year
+var minimunBSI = 0.7;
 // to normalize colormap
 var stretchMin = 0;
 var stretchMax = 0.8;
@@ -40,7 +40,7 @@ function stretch(val, min, max) {
 }
 
 
-function NDVI(sample) {
+function BSI(sample) {
     let denom = ((sample.B11 + sample.B04)-(sample.B08 + sample.B02));
     return ((denom != 0) ? ((sample.B11 + sample.B04)+(sample.B08 + sample.B02)) / denom : 0.0);
 }
@@ -92,10 +92,10 @@ function evaluatePixel(samples, scenes) {
 
     let monthsAndYears = getNeededDates(initMonth, initYear, 3);
 
-    let currentYearNDVI = 0;
+    let currentYearBSI = 0;
     let currentYearCount = 0;
 
-    let previousYearNDVI = 0;
+    let previousYearBSI = 0;
     let previousYearCount = 0;
     let lastYearMonth0 = [];
     let lastYearMonth1 = [];
@@ -107,24 +107,24 @@ function evaluatePixel(samples, scenes) {
             sceneYear = scenes[i].date.getFullYear();
             if (monthsAndYears[0].includes(sceneMonth)) {
                 if (samples[i].B02 < blueThresold) {
-                    ndvi = NDVI(samples[i]);
+                    ndvi = BSI(samples[i]);
                     if (monthsAndYears[1].includes(sceneYear))
                     // if current year (last 12 months max)
                     {
-                        currentYearNDVI = currentYearNDVI + ndvi;
+                        currentYearBSI = currentYearBSI + bsi;
                         currentYearCount++;
 
                     }
                     // if year before
                     else if (monthsAndYears[1].includes(sceneYear + 1)) {
-                        previousYearNDVI = previousYearNDVI + ndvi;
+                        previousYearBSI = previousYearBSI + bsi;
 
                         if (monthsAndYears[0][0] == sceneMonth) {
-                            lastYearMonth0.push(ndvi);
+                            lastYearMonth0.push(bsi);
                         } else if (monthsAndYears[0][1] == sceneMonth) {
-                            lastYearMonth1.push(ndvi);
+                            lastYearMonth1.push(bsi);
                         } else if (monthsAndYears[0][2] == sceneMonth) {
-                            lastYearMonth2.push(ndvi);
+                            lastYearMonth2.push(bsi);
                         }
                         previousYearCount++;
                     }
@@ -134,15 +134,15 @@ function evaluatePixel(samples, scenes) {
     }
 
     // compute the mean
-    let avgCurrentYearNDVI = currentYearNDVI / currentYearCount;
-    let avgPreviousYearNDVI = previousYearNDVI / previousYearCount;
+    let avgCurrentYearBSI = currentYearBSI / currentYearCount;
+    let avgPreviousYearBSI = previousYearBSI / previousYearCount;
 
     // if ndvi decreases from defined thresold in the same months from previous year
     // highlights in red the pixel
     // check also if is not water
-    let difference = avgPreviousYearNDVI - avgCurrentYearNDVI;
+    let difference = avgPreviousYearBSI - avgCurrentYearBSI;
 
-    if ((NDWI(samples[0]) < 0.5) & (difference >= thresold) & (avgPreviousYearNDVI > minimunNDVI) & (mean(lastYearMonth0) > minimunNDVI) & (mean(lastYearMonth1) > minimunNDVI) & (mean(lastYearMonth2) > minimunNDVI)) {
+    if ((NDWI(samples[0]) < 0.5) & (difference >= thresold) & (avgPreviousYearBSI > minimunBSI) & (mean(lastYearMonth0) > minimunBSI) & (mean(lastYearMonth1) > minimunBSI) & (mean(lastYearMonth2) > minimunBSI)) {
         // the more the difference is high, the more it is red
         colorMap = [stretch((2.8 * (2 / 3) * 10 * difference * samples[0].B04 + 0.1 * samples[0].B05), stretchMin, stretchMax), stretch((2.8 * samples[0].B03 + 0.15 * samples[0].B08), stretchMin, stretchMax), stretch((2.8 * samples[0].B02), stretchMin, stretchMax)];
     }
